@@ -67,6 +67,7 @@ CREATE TABLE HasAccounts
 	RobberId integer,
 	BankName varchar(255),
 	City varchar(255),
+	PRIMARY KEY	(RobberID, BankName, City),
 	FOREIGN KEY (RobberId) REFERENCES Robbers(RobberId),
 	FOREIGN KEY (BankName, City) REFERENCES Banks(BankName, City)
 );
@@ -78,6 +79,7 @@ CREATE TABLE Accomplices
 	City varchar(255),
 	RobberyDate date,
 	Share numeric,
+	PRIMARY KEY	(RobberID, BankName, City, RobberyDate),
 	FOREIGN KEY (RobberId) REFERENCES Robbers(RobberId),
 	FOREIGN KEY (BankName, City) REFERENCES Banks(BankName, City),
 	CONSTRAINT non_negative CHECK (Share >= 0)

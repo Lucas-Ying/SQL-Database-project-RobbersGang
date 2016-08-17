@@ -10,7 +10,7 @@
 /*insert into robbers*/
 \copy Robbers(Nickname, Age, NoYears) FROM data/robbers_16.data
 
-/*create a tempery hasSkills table*/
+/*create a temporary hasSkills table*/
 CREATE TABLE TempHasSkills
 (
 	Nickname varchar(255) NOT NULL,
@@ -20,25 +20,25 @@ CREATE TABLE TempHasSkills
 	primary key (Nickname, Skill)
 );
 
-/*insert hasSkills.data into TempHasSkills*/
+/*insert hasskills.data into TempHasSkills*/
 \copy TempHasSkills FROM data/hasskills_16.data
 
-/*initialise Skills table using TempHasSkills table*/
+/*insert into Skills table using TempHasSkills table*/
 INSERT INTO Skills (description)
 	SELECT DISTINCT Skill
 	FROM TempHasSkills;
 
-/*initialise HasSkills table using temp2*/
+/*insert into HasSkills table=*/
 INSERT INTO HasSkills
 	SELECT RobberId, SkillId, Preference, Grade 
 	FROM TempHasSkills
 	JOIN Robbers ON TempHasSkills.NickName = Robbers.NickName
 	JOIN Skills ON TempHasSkills.skill = Skills.description;
 
-/*Drop the three temp tables*/
+/*Drop the temp table*/
 DROP TABLE TempHasSkills;
 
-/*create a tempery hasAccounts table*/
+/*create a temporary hasAccounts table*/
 CREATE TABLE TempHasAccounts
 (
 	Nickname varchar(255) NOT NULL,
@@ -47,19 +47,19 @@ CREATE TABLE TempHasAccounts
 	primary key (Nickname, BankName, City)
 );
 
-/*insert into hasSkills to TempHasSkills*/
+/*insert hasaccounts.data into TempHasAccounts*/
 \copy TempHasAccounts FROM data/hasaccounts_16.data
 
-/*initialise HasAccounts table using temp*/
+/*insert into HasAccounts table*/
 INSERT INTO HasAccounts
 	SELECT RobberId, BankName, City
 	FROM TempHasAccounts
 	JOIN Robbers ON TempHasAccounts.NickName = Robbers.NickName;
 
-/*Drop the two temp tables*/
+/*Drop the temp table*/
 DROP TABLE TempHasAccounts;
 
-/*create a tempery Accomplices table*/
+/*create a temporary Accomplices table*/
 CREATE TABLE TempAccomplices
 (
 	NickName	varchar(255) NOT NULL,
@@ -70,17 +70,14 @@ CREATE TABLE TempAccomplices
 	primary key (Nickname, BankName, City, RobberyDate)
 );
 
-/*insert into hasSkills to TempHasSkills*/
+/*insert accomplices.data into TempAccomplices*/
 \copy TempAccomplices FROM data/accomplices_16.data
 
-/*Create temp to convert all robber names to ids*/
-CREATE TABLE Temp AS
-	SELECT RobberID, BankName, City, RobberyDate, Share FROM TempAccomplices JOIN Robbers ON TempAccomplices.Nickname = Robbers.Nickname;
-
-/*initialise Accomplices table using temp*/
+/*insert into Accomplices table*/
 INSERT INTO Accomplices
-	SELECT * FROM Temp;
+	SELECT RobberID, BankName, City, RobberyDate, Share
+	FROM TempAccomplices 
+	JOIN Robbers ON TempAccomplices.Nickname = Robbers.Nickname;
 
-/*Drop the two temp tables*/
-DROP TABLE Temp;
+/*Drop the temp table*/
 DROP TABLE TempAccomplices;
