@@ -45,7 +45,7 @@ CREATE TABLE Robbers
 CREATE TABLE Skills
 (
 	SkillId serial,
-	Description varchar(255) NOT NULL,
+	Description varchar(255) NOT NULL UNIQUE,
 	PRIMARY KEY (SkillId)
 );
 
