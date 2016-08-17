@@ -8,16 +8,16 @@
 \copy Plans(BankName, City, PlannedDate, NoRobbers) FROM data/plans_16.data
 
 /*insert into robbers*/
-\copy Robbers(Nickname, Age, NoYears) FROM data/robbers_16.data
+\copy Robbers(NickName, Age, NoYears) FROM data/robbers_16.data
 
 /*create a temporary hasSkills table*/
 CREATE TABLE TempHasSkills
 (
-	Nickname varchar(255) NOT NULL,
+	NickName varchar(255) NOT NULL,
 	Skill varchar(255) NOT NULL,
 	Preference integer NOT NULL,
 	Grade varchar(2) NOT NULL,
-	primary key (Nickname, Skill)
+	primary key (NickName, Skill)
 );
 
 /*insert hasskills.data into TempHasSkills*/
@@ -41,10 +41,10 @@ DROP TABLE TempHasSkills;
 /*create a temporary hasAccounts table*/
 CREATE TABLE TempHasAccounts
 (
-	Nickname varchar(255) NOT NULL,
+	NickName varchar(255) NOT NULL,
 	BankName varchar(255) NOT NULL,
 	City varchar(255) NOT NULL,
-	primary key (Nickname, BankName, City)
+	primary key (NickName, BankName, City)
 );
 
 /*insert hasaccounts.data into TempHasAccounts*/
@@ -67,7 +67,7 @@ CREATE TABLE TempAccomplices
 	City		varchar(255) NOT NULL,
 	RobberyDate	date NOT NULL,
 	Share		real,
-	primary key (Nickname, BankName, City, RobberyDate)
+	primary key (NickName, BankName, City, RobberyDate)
 );
 
 /*insert accomplices.data into TempAccomplices*/
@@ -77,7 +77,7 @@ CREATE TABLE TempAccomplices
 INSERT INTO Accomplices
 	SELECT RobberID, BankName, City, RobberyDate, Share
 	FROM TempAccomplices 
-	JOIN Robbers ON TempAccomplices.Nickname = Robbers.Nickname;
+	JOIN Robbers ON TempAccomplices.NickName = Robbers.NickName;
 
 /*Drop the temp table*/
 DROP TABLE TempAccomplices;
