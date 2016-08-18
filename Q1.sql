@@ -2,10 +2,11 @@ CREATE TABLE Banks
 (
 	BankName varchar(255),
 	City varchar(255),
-	NoAccounts integer,
+	NoAccounts integer NOT NULL,
 	Security varchar(255) NOT NULL,
 	PRIMARY KEY (BankName, City),
 	CONSTRAINT non_negative CHECK (NoAccounts >= 0),
+	CONSTRAINT city_range CHECK (City IN ('Chicago', 'Evanston', 'Deerfield')),
 	CONSTRAINT security_range CHECK (Security IN ('excellent', 'very good', 'good', 'weak'))
 );
 
@@ -24,7 +25,7 @@ CREATE TABLE Plans
 (
 	BankName varchar(255),
 	City varchar(255),
-	NoRobbers integer,
+	NoRobbers integer NOT NULL,
 	PlannedDate date,
 	PRIMARY KEY (BankName, City, PlannedDate),
 	FOREIGN KEY	(BankName, City) REFERENCES Banks(BankName, City),
@@ -53,8 +54,8 @@ CREATE TABLE HasSkills
 (
 	RobberId integer,
 	SkillId integer,
-	Preference integer,
-	Grade varchar(2),
+	Preference integer NOT NULL,
+	Grade varchar(2) NOT NULL,
 	PRIMARY KEY (RobberId, SkillId),
 	FOREIGN KEY (RobberId) REFERENCES Robbers(RobberId),
 	FOREIGN KEY (SkillId) REFERENCES Skills(SkillId),
