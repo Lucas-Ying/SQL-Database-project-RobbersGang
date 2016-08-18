@@ -1,7 +1,8 @@
 /* Task 2 */
 SELECT DISTINCT BankName
 FROM HasAccounts
-WHERE HasAccounts.RobberID IN
-(SELECT RobberID 
+WHERE HasAccounts.RobberID IN (
+	SELECT RobberID 
 	FROM Robbers
-	WHERE NickName = 'Calamity Jane');
+	WHERE NickName = 'Calamity Jane'
+);

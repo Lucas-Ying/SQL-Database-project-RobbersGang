@@ -36,7 +36,7 @@ FROM BankWithRobbery
 GROUP BY Security;
 
 /* Show result */
-SELECT * FROM Task1Final;
+SELECT * FROM Task2Final;
 
 
 /*----------------- Task 3 -----------------*/
@@ -55,7 +55,7 @@ SELECT Security, Skill, NickName
 FROM Task3Temp1;
 
 /* Show result */
-SELECT * FROM Task1Final;
+SELECT * FROM Task3Final;
 
 
 /*----------------- Task 4 -----------------*/
@@ -91,7 +91,7 @@ SELECT BankName, City, Security
 FROM InPlan;
 
 /* Show result */
-SELECT * FROM Task1Final;
+SELECT * FROM Task4Final;
 
 
 /*----------------- Task 5 -----------------*/
@@ -101,13 +101,13 @@ FROM Accomplices
 GROUP BY BankName, City, Date
 ORDER BY City, Date;
 
-CREATE VIEW AverageChicago AS
+CREATE VIEW Task5Final AS
 SELECT City, AVG(Average) AS Average
 FROM RobberiesAvg
 GROUP BY City;
 
 /* Show result */
-SELECT * FROM Task1Final;
+SELECT * FROM Task5Final;
 
 
 

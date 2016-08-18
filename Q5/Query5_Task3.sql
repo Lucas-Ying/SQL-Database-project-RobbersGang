@@ -9,7 +9,7 @@ FROM (
 	NATURAL JOIN Skills
 	NATURAL JOIN Robbers
 	GROUP BY Security, Skill, NickName
-	ORDER BY NoSkills DESC;
+	ORDER BY NoSkills DESC
 ) AS Temp;
 
 /* Show result */
