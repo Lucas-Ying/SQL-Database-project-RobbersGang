@@ -25,15 +25,15 @@ CREATE TABLE TempHasSkills
 
 /*insert into Skills table using TempHasSkills table*/
 INSERT INTO Skills (description)
-	SELECT DISTINCT Skill
-	FROM TempHasSkills;
+SELECT DISTINCT Skill
+FROM TempHasSkills;
 
 /*insert into HasSkills table=*/
 INSERT INTO HasSkills
-	SELECT RobberId, SkillId, Preference, Grade 
-	FROM TempHasSkills
-	JOIN Robbers ON TempHasSkills.NickName = Robbers.NickName
-	JOIN Skills ON TempHasSkills.skill = Skills.description;
+SELECT RobberId, SkillId, Preference, Grade 
+FROM TempHasSkills
+JOIN Robbers ON TempHasSkills.NickName = Robbers.NickName
+JOIN Skills ON TempHasSkills.skill = Skills.description;
 
 /*Drop the temp table*/
 DROP TABLE TempHasSkills;
@@ -52,9 +52,9 @@ CREATE TABLE TempHasAccounts
 
 /*insert into HasAccounts table*/
 INSERT INTO HasAccounts
-	SELECT RobberId, BankName, City
-	FROM TempHasAccounts
-	JOIN Robbers ON TempHasAccounts.NickName = Robbers.NickName;
+SELECT RobberId, BankName, City
+FROM TempHasAccounts
+JOIN Robbers ON TempHasAccounts.NickName = Robbers.NickName;
 
 /*Drop the temp table*/
 DROP TABLE TempHasAccounts;
@@ -75,9 +75,9 @@ CREATE TABLE TempAccomplices
 
 /*insert into Accomplices table*/
 INSERT INTO Accomplices
-	SELECT RobberID, BankName, City, RobberyDate, Share
-	FROM TempAccomplices 
-	JOIN Robbers ON TempAccomplices.NickName = Robbers.NickName;
+SELECT RobberID, BankName, City, RobberyDate, Share
+FROM TempAccomplices 
+JOIN Robbers ON TempAccomplices.NickName = Robbers.NickName;
 
 /*Drop the temp table*/
 DROP TABLE TempAccomplices;
