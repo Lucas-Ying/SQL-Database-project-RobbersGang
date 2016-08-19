@@ -8,10 +8,11 @@ FROM (
 		FROM Banks b
 		WHERE NOT EXISTS (
 			SELECT BankName, City
-			FROM Robberies
+			FROM Robberies r
 			WHERE Date > '2014-12-31' 
 			AND Date < '2016-1-1' 
-			AND b.BankName = BankName 
+			AND b.BankName = r.BankName 
+			AND b.City = r.City
 		)
 	) AS InPlan
 	NATURAL JOIN (

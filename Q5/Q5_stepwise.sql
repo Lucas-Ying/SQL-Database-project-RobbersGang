@@ -74,15 +74,16 @@ SELECT BankName, City, Security
 FROM Banks b
 WHERE NOT EXISTS (
 	SELECT *
-	FROM Robberies2015
-	WHERE b.BankName = BankName
+	FROM Robberies2015 r
+	WHERE b.BankName = r.BankName
+	AND b.City = r.City
 );
 
 CREATE VIEW InPlan AS
 SELECT BankName, City, Security, COUNT(RobberID) AS NoAccounts
-FROM NotRobbed
-NATURAL JOIN Plans2017
+FROM NotRobbed nr
 NATURAL JOIN HasAccounts
+NATURAL JOIN Plans2017
 GROUP BY BankName, City, Security
 ORDER BY NoAccounts DESC;
 
